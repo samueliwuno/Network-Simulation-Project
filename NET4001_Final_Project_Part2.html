@@ -1,0 +1,748 @@
+<head>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="case.js"></script>
+</head>
+<body>
+<center>
+<img src="Carleton-University.png"  alt="NET4001" align="middle">
+</center>
+<!-- Plotly chart will be drawn inside this DIV -->
+<h1>Part 1</h1>
+<h2>Random Generate 1000 values</h2>
+<div id="myDiv">
+	
+</div>
+<button onclick="regenerate()">Step1</button>
+<button onclick="expregenerateH()">Step2 histogram</button>
+<button onclick="expregenerateQQ()">Step2 QQplot</button>
+<button onclick="step3_graph_draw()">Step3 Average Clients</button>
+<button onclick="step3_graph_delay_draw()">Step3 Average Delay</button>
+
+<h2>Kolmogorov Test</h2>
+<table style="width:100%">
+  <tr>
+    <th>D+ max</th>
+    <th>D- max</th> 
+    <th>max(D+, D-)</th>
+    <th>D alpha</th>
+    <th>Kolmogorov Test</th>
+
+  </tr>
+  <tr>
+    <td align="center"id="D_postivie_max"></td>
+    <td align="center"id="D_negative_max"></td>
+    <td align="center"id="compareD"></td>
+    <td align="center">0.04</td>
+    <td align="center"id="Kolmogorov_test"></td>
+  </tr>
+</table>
+
+<h2>Chi Square Test</h2>
+<table style="width:100%">
+  <tr>
+    <th>Interval</th>
+    <th>Oi</th> 
+    <th>Ei</th>
+    <th>Oi - Ei</th>
+    <th>(Oi - Ei)^2</th>
+    <th>((Oi - Ei)^2)/Ei</th>
+    <th>χ2 0.05, 100</th>
+    <th>Chi Square Test</th>
+
+  </tr>
+  <tr>
+    <td align="center" id="interval_1"></td>
+    <td align="center" id="Oi_1"></td>
+    <td align="center" id="Ei_1"></td>
+    <td align="center" id="Oi-Ei_1"></td>
+    <td align="center" id="Oi-Ei_squre_1"></td>   
+    <td align="center" id="Oi-Ei_squre_over_Ei_1"></td>   
+  </tr>
+
+  <tr>
+    <td align="center" id="interval_2"></td>
+    <td align="center" id="Oi_2"></td>
+    <td align="center" id="Ei_2"></td>
+    <td align="center" id="Oi-Ei_2"></td>
+    <td align="center" id="Oi-Ei_squre_2"></td>   
+    <td align="center" id="Oi-Ei_squre_over_Ei_2"></td>   
+  </tr>
+
+  <tr>
+    <td align="center" id="interval_3"></td>
+    <td align="center" id="Oi_3"></td>
+    <td align="center" id="Ei_3"></td>
+    <td align="center" id="Oi-Ei_3"></td>
+    <td align="center" id="Oi-Ei_squre_3"></td>   
+    <td align="center" id="Oi-Ei_squre_over_Ei_3"></td>   
+  </tr>
+
+  <tr>
+    <td align="center" id="interval_4"></td>
+    <td align="center" id="Oi_4"></td>
+    <td align="center" id="Ei_4"></td>
+    <td align="center" id="Oi-Ei_4"></td>
+    <td align="center" id="Oi-Ei_squre_4"></td>   
+    <td align="center" id="Oi-Ei_squre_over_Ei_4"></td>   
+  </tr>
+
+  <tr>
+    <td align="center" id="interval_5"></td>
+    <td align="center" id="Oi_5"></td>
+    <td align="center" id="Ei_5"></td>
+    <td align="center" id="Oi-Ei_5"></td>
+    <td align="center" id="Oi-Ei_squre_5"></td>   
+    <td align="center" id="Oi-Ei_squre_over_Ei_5"></td>   
+  </tr>
+
+  <tr>
+    <td align="center" id="interval_6"></td>
+    <td align="center" id="Oi_6"></td>
+    <td align="center" id="Ei_6"></td>
+    <td align="center" id="Oi-Ei_6"></td>
+    <td align="center" id="Oi-Ei_squre_6"></td>   
+    <td align="center" id="Oi-Ei_squre_over_Ei_6"></td>   
+  </tr>
+
+  <tr>
+    <td align="center" id="interval_7"></td>
+    <td align="center" id="Oi_7"></td>
+    <td align="center" id="Ei_7"></td>
+    <td align="center" id="Oi-Ei_7"></td>
+    <td align="center" id="Oi-Ei_squre_7"></td>   
+    <td align="center" id="Oi-Ei_squre_over_Ei_7"></td>   
+  </tr>
+
+  <tr>
+    <td align="center" id="interval_8"></td>
+    <td align="center" id="Oi_8"></td>
+    <td align="center" id="Ei_8"></td>
+    <td align="center" id="Oi-Ei_8"></td>
+    <td align="center" id="Oi-Ei_squre_8"></td>   
+    <td align="center" id="Oi-Ei_squre_over_Ei_8"></td>   
+  </tr>
+
+  <tr>
+    <td align="center" id="interval_9"></td>
+    <td align="center" id="Oi_9"></td>
+    <td align="center" id="Ei_9"></td>
+    <td align="center" id="Oi-Ei_9"></td>
+    <td align="center" id="Oi-Ei_squre_9"></td>   
+    <td align="center" id="Oi-Ei_squre_over_Ei_9"></td>   
+  </tr>
+
+  <tr>
+    <td align="center" id="interval_10"></td>
+    <td align="center" id="Oi_10"></td>
+    <td align="center" id="Ei_10"></td>
+    <td align="center" id="Oi-Ei_10"></td>
+    <td align="center" id="Oi-Ei_squre_10"></td>   
+    <td align="center" id="Oi-Ei_squre_over_Ei_10"></td>   
+  </tr>
+
+	<tr>
+    <td align="center">...</td>
+    <td align="center">...</td>
+    <td align="center">...</td>
+    <td align="center">...</td>
+    <td align="center">...</td>   
+    <td align="center">...</td>   
+  </tr>
+  <tr>
+    <td align="center">Total </td>
+    <td align="center" id="Oi_total"></td>
+    <td align="center" id="Ei_total"></td>
+    <td align="center" id="Oi-Ei_total"></td>
+    <td align="center" id="Oi-Ei_squre_total"></td>   
+    <td align="center" id="Oi-Ei_squre_over_Ei_total"></td>  
+    <td align="center">124.3</td>  
+    <td align="center" id="Chi_Square_Test"></td>  
+
+  </tr>
+
+
+</table>
+
+<script>     
+	var graphDiv = document.getElementById('myDiv')
+
+	var x = [];
+	function random_generator(){
+		//Generate 1000 random numbers
+		
+		for (var i = 0; i < 1000; i ++) {
+		    x[i] = 0.001 + Math.floor(Math.random() * 1000)/1000;
+		    // console.log(i + ": " + x[i]);
+		}
+
+		var chi = [];
+			for(i = 0; i < 100; i++){
+				chi[i] = 0;
+			}
+		//Sort numbers in ascending order for R(i)
+		x.sort();
+		for(i = 0; i < x.length; i++){
+			// console.log("chi test sort: " + chi_case(x[i]));
+			chi[chi_case(x[i])] += 1;
+
+			// console.log("sorted" + i + ": " + x[i]);
+		}
+
+		for(i = 0; i < 100; i++){
+			// console.log("chi " + i + " " + chi[i]);
+		}
+		
+ 
+		//**** Kolmogorov test start
+
+		//Make array for i/N
+		var n = [];
+		//Make array for D+
+		var D_postivie = [];
+		//Make array for D+
+		var D_negative = [];
+
+		for(i = 0; i < x.length; i++){
+			//make element and push into array n
+			n[i] = (i + 1)/1000;
+			//make element and push into array D_postivie
+			D_postivie[i] = n[i] - x[i];
+			//make element and push into array D_negative
+			D_negative[i] = x[i] - (i/1000);
+
+
+			// console.log("n" + i +  " " + n[i]);
+			// console.log("x" + i +  " " + x[i]);
+			// console.log("D_postivie" + i +  " " + D_postivie[i]);
+			// console.log("D_negative" + i +  " " + D_negative[i]);
+			
+
+		}
+		D_postivie_max = Math.max(...D_postivie)
+		document.getElementById("D_postivie_max").innerHTML = D_postivie_max;
+		D_negative_max = Math.max(...D_negative)
+		document.getElementById("D_negative_max").innerHTML = D_negative_max;
+		// console.log("D_postivie max " + D_postivie_max);
+		// console.log("D_negative max " + D_negative_max);
+		compareD = Math.max(D_postivie_max, D_negative_max);
+		// console.log("Compare (D_postivie, D_negative max) what is bigger? " + compareD);
+		document.getElementById("compareD").innerHTML = compareD;
+
+		// Kolmogorov_test
+		if(compareD > 0.04){
+			document.getElementById("Kolmogorov_test").innerHTML = "H0 is rejected";
+		}
+
+		else{
+			document.getElementById("Kolmogorov_test").innerHTML = "No difference has been detected";
+		}
+
+		//**** Kolmogorov test end
+
+		//**** Chi Square test start
+
+		//fill in data for the table rows 1 - 10
+		for(i = 1; i <= 10; i++){
+			document.getElementById("interval_" + i).innerHTML = i;
+			document.getElementById("Oi_" + i).innerHTML = chi[i-1];
+			document.getElementById("Ei_" + i).innerHTML = 10;
+			document.getElementById("Oi-Ei_" + i).innerHTML = chi[i-1] - 10;
+			document.getElementById("Oi-Ei_squre_" + i).innerHTML = Math.pow(chi[i-1] - 10, 2);
+			document.getElementById("Oi-Ei_squre_over_Ei_" + i).innerHTML = Math.pow(chi[i-1] - 10, 2)/10;
+		}
+
+		//calculate rows 1 - 100
+		var Oi_total = 0;
+		var Ei_total = 0;
+		var Oi_Ei_total = 0;
+		var Oi_Ei_squre_total = 0.0;
+		var Oi_Ei_squre_over_Ei_total = 0;
+
+		for(i = 0; i < 100; i++){
+			Oi_total += chi[i];
+			Ei_total += 10;
+			Oi_Ei_total += chi[i] - 10;
+			Oi_Ei_squre_total += Math.pow(chi[i] - 10, 2);
+			Oi_Ei_squre_over_Ei_total += Math.pow(chi[i] - 10, 2)/10;
+			// console.log("CONSOLE Oi_Ei_squre_over_Ei_total : " + Oi_Ei_squre_over_Ei_total)
+
+		}
+
+		console.log("CONSOLE OI TOTAL: " + Oi_total)
+
+		document.getElementById("Oi_total").innerHTML = Oi_total
+		document.getElementById("Ei_total").innerHTML = Ei_total;
+		document.getElementById("Oi-Ei_total").innerHTML = Oi_Ei_total;
+		document.getElementById("Oi-Ei_squre_total").innerHTML = Oi_Ei_squre_total;
+		document.getElementById("Oi-Ei_squre_over_Ei_total").innerHTML = Oi_Ei_squre_over_Ei_total;
+
+		// Chi Square Test
+		if(Oi_Ei_squre_over_Ei_total > 124.3){
+			document.getElementById("Chi_Square_Test").innerHTML = "H0 is rejected since " + Oi_Ei_squre_over_Ei_total + " > " + 124.3;
+		}
+
+		else{
+			document.getElementById("Chi_Square_Test").innerHTML = "No difference has been detected";
+		}
+
+		//**** Chi Square test end
+
+		
+		var trace = {
+		    x: x,
+		    type: 'histogram',
+		    xbins: {
+		    	start: 0,
+		    	end: 1,
+		    	size: 0.01
+
+		    }
+		  };
+		return [trace];
+		
+		Plotly.newPlot(graphDiv, random_generator());
+	}
+
+	
+	
+	var y = [];
+	var yj = [];
+	
+	function exponential_rand() {
+	
+		
+	//var y = []
+		for (var i= 0;i<1000;i++){
+		y[i] = (-1/3)*Math.log(x[i])
+		}
+		
+		
+		
+	
+		//console.log(yj)	
+		
+	}
+	
+	function make_histogram(){
+	exponential_rand();
+	var trace = {
+		    x: y,
+		    type: 'histogram',
+		    xbins: {
+		    	start: 0,
+		    	end: 1,
+		    	size: 0.01
+
+		    }
+		  };
+		  
+		  return [trace];
+		
+		Plotly.newPlot(graphDiv, make_histogram());
+	}
+	
+	
+	function make_qq(){
+	exponential_rand();
+	//sort/prepare for QQ
+		y.sort();
+		var j = 1
+		//var yj = []
+		for (var i= 0;i<1000;i++){
+		yj[i] = (-1/3)*Math.log((j-0.5)/1000)
+		j++
+		}
+
+		var xqq = []
+		for (var i =0;i<1000;i++){
+			xqq[i] = (-1/3)*Math.log(yj[i])
+		}
+	
+
+	var trace = {
+		  x: y,
+		  y: xqq,	
+		  mode: 'markers',
+		  type: 'scatter',
+		  line: {
+		  	color: 'red',
+		  	smoothing: 0.1
+		  }
+		};
+
+		
+		return [trace];
+		
+		Plotly.newPlot(graphDiv, make_qq());
+		  
+	}
+
+	function step3_graph(){
+		var lamda = [1,2,4,6,8,10, 10.1, 10.5, 11,12, 14, 16, 18]
+		var simulation_client_result = []
+		var client_theory = []
+
+		for(i = 0; i < 13; i++){
+			simulation_client_result[i] = single_server_queue(lamda[i])
+
+			client_theory[i] = lamda[i] * 1/(10 - lamda[i]);
+			console.log("simulation_client_result : " + simulation_client_result[i])
+			console.log("client_theory : " + client_theory[i])
+		}
+		simulation_client_result[5] = 99;
+		client_theory[5] = 99
+
+		var trace = {
+		  x: lamda,
+		  y: simulation_client_result,
+		  name: 'Simulation client #',
+		  mode: 'markers+lines',
+		  type: 'scatter'
+		};
+
+		var traceh = {
+		  x: lamda,
+		  y: client_theory,
+		  name: 'Theoretical client #',
+		  mode: 'markers',
+		  type: 'scatter',
+		  line: {
+		  	color: 'red',
+		  	smoothing: 0.1
+		  }
+		};
+
+		var layout = {
+		  title: '# of clients cannot be shown at Lambda = 10 due to Infinity',
+		  xaxis: {
+		  	title: 'Lambda',
+		  	titlefont: {
+		      family: 'Courier New, monospace',
+		      size: 18,
+		      color: '#7f7f7f'
+		    },
+		  	range: [0, 14]
+		  },
+		  yaxis: {
+		  	title: '# of clients',
+		  	titlefont: {
+		      family: 'Courier New, monospace',
+		      size: 18,
+		      color: '#7f7f7f'
+		    },
+		  	range: [-99, 99]
+		  }
+		};
+		
+		return [trace,traceh];
+		
+		Plotly.newPlot(graphDiv, step3_graph());
+
+	}
+
+	function step3_graph_delay(){
+		var lamda = [1,2,4,6,8,10, 10.1, 10.5, 11,12, 14, 16, 18]
+		// var simulation_client_result = []
+		var simulation_delay_result = []
+		
+		// var client_theory = []
+		var delay_theory = []
+		
+
+		for(i = 0; i < 13; i++){
+			simulation_delay_result[i] = single_server_queue_delay(lamda[i])
+
+			delay_theory[i] = 1 / (10 - lamda[i]);
+			console.log("simulation_delay_result : " + simulation_delay_result[i])
+			console.log("delay_theory : " + delay_theory[i])
+		}
+		simulation_delay_result[5] = 99;
+		delay_theory[5] = 99
+
+		var trace = {
+		  x: lamda,
+		  y: simulation_delay_result,
+		  name: 'Simulation Average delay',
+		  mode: 'markers+lines',
+		  type: 'scatter'
+		};
+
+		var traceh = {
+		  x: lamda,
+		  y: delay_theory,
+		  name: 'Theoretical Average delay',
+		  mode: 'markers',
+		  type: 'scatter',
+		  line: {
+		  	color: 'red',
+		  	smoothing: 0.1
+		  }
+		};
+
+		var layout = {
+		  title: '# of clients cannot be shown at Lambda = 10 due to Infinity',
+		  xaxis: {
+		  	title: 'Lambda',
+		  	titlefont: {
+		      family: 'Courier New, monospace',
+		      size: 18,
+		      color: '#7f7f7f'
+		    },
+		  	range: [0, 14]
+		  },
+		  yaxis: {
+		  	title: '# of clients',
+		  	titlefont: {
+		      family: 'Courier New, monospace',
+		      size: 18,
+		      color: '#7f7f7f'
+		    },
+		  	range: [-99, 99]
+		  }
+		};
+		
+		return [trace,traceh];
+		
+		Plotly.newPlot(graphDiv, step3_graph_delay());
+
+	}
+
+	function single_server_queue(lamda_value){
+
+		//counters
+		var reqnum = 0
+
+		
+		console.log("what is my lamda? : " + lamda_value)
+		
+		var irt = []		// interrival time
+		var service_time_start = []		// service time start
+		var service_time_end = []		// service time end
+		var wait_time = []	// wait time
+		var st = []			// service time
+		var at =[]			// arrival time
+		var lander = [1,2,4,6,8,10,12]
+		var random = Math.floor(Math.random() * lander.length);
+		var chlander = lander[random]; // randomly choose lander
+		at[0] = 0;
+		irt[0] = 0;
+		st[0] = (-1/10)*Math.log(x[0])
+		service_time_start[0] = 0;
+		service_time_end[0] = st[0]
+		wait_time[0] = 0;
+
+		total_wait_time = 0;
+		total_service_time = 0;
+		total_inter_arrivle_time = 0;
+		
+		var avg_service_time = 0;
+		var avg_inter_arrival_time = 0;
+		var avg_wait_time;
+		var Lq;
+		var Ls;
+		var L;
+		
+		for (var i =1; i<1000;i++){
+			
+			// var chlander = lander[Math.floor(Math.random() * lander.length)]; // randomly choose lander
+			// console.log("Random index:"+ random )
+			// console.log("Random lander:"+chlander )
+
+
+			irt[i] = (-1/lamda_value)*Math.log(x[i])
+			st[i] = (-1/10)*Math.log(x[i])
+			at[i] =   irt[i] + at[i-1]
+
+			
+
+			if(at[i] > service_time_end[i-1]){
+				wait_time[i] = 0
+			}
+
+			else {
+				wait_time[i] = service_time_end[i-1] - at[i] 
+				total_wait_time += wait_time[i]
+			}
+
+			service_time_start[i] = at[i] + wait_time[i];
+			service_time_end[i] = st[i] + service_time_start[i]
+			// console.log("random number x[" + i + "] : " + x[i])
+			// console.log("Inter-arrival times irt[" + i + "]"+irt[i] )
+			// console.log("Service times st[" + i + "]" +st[i] )
+			// console.log(chlander)
+			total_service_time += st[i];
+			total_inter_arrivle_time += irt[i];
+		}
+		
+		avg_service_time = 1/(total_service_time/1000)
+		avg_inter_arrival_time = 1/(total_inter_arrivle_time/1000)
+		avg_wait_time = 1/(avg_service_time -  avg_inter_arrival_time) - 1/avg_service_time
+		Lq = avg_wait_time * avg_inter_arrival_time
+		Ls = avg_inter_arrival_time / avg_service_time
+		L = Lq + Ls;
+		return L;
+
+		for ( i = 0; i < 1000; i++){
+			console.log("random number x[" + i + "] : " + x[i])
+			console.log("Inter-arrival times irt[" + i + "]: "+irt[i] )
+			console.log("Service times st[" + i + "]: " +st[i] )
+			console.log("Arrival times st[" + i + "]: " +at[i] )
+
+			console.log("service_time_start[" + i + "]: " + service_time_start[i] )
+			console.log("wait_time wait_time[" + i + "]: " + wait_time[i] )
+			if(wait_time[i]>0){
+				console.log("waiting_c");
+			}
+			console.log("service_time_end[" + i + "]: " +service_time_end[i] )
+		}
+
+		
+
+		console.log("TOTAL WAITING: " + total_wait_time)
+		// console.log("SIMULATION CLIENT: " + simulation_client)
+		console.log("SIMULATION CLIENT L: " + L)
+		
+		// sts[]
+		for(i=1; i<irt.length;i++){
+			at[i]=at[i-1] +irt[i]
+			//console.log("Arrival time: " +i+at[i])
+		}
+		console.log(at)
+
+
+
+	}
+
+	function single_server_queue_delay(lamda_value){
+
+		//counters
+		var reqnum = 0
+
+		
+		console.log("what is my lamda? : " + lamda_value)
+		
+		var irt = []		// interrival time
+		var service_time_start = []		// service time start
+		var service_time_end = []		// service time end
+		var wait_time = []	// wait time
+		var st = []			// service time
+		var at =[]			// arrival time
+		var lander = [1,2,4,6,8,10,12]
+		var random = Math.floor(Math.random() * lander.length);
+		var chlander = lander[random]; // randomly choose lander
+		at[0] = 0;
+		irt[0] = 0;
+		st[0] = (-1/10)*Math.log(x[0])
+		service_time_start[0] = 0;
+		service_time_end[0] = st[0]
+		wait_time[0] = 0;
+
+		total_wait_time = 0;
+		total_service_time = 0;
+		total_inter_arrivle_time = 0;
+		
+		var avg_service_time = 0;
+		var avg_inter_arrival_time = 0;
+		var avg_wait_time;
+		var Lq;
+		var Ls;
+		var L;
+		
+		for (var i =1; i<1000;i++){
+			
+			// var chlander = lander[Math.floor(Math.random() * lander.length)]; // randomly choose lander
+			// console.log("Random index:"+ random )
+			// console.log("Random lander:"+chlander )
+
+
+			irt[i] = (-1/lamda_value)*Math.log(x[i])
+			st[i] = (-1/10)*Math.log(x[i])
+			at[i] =   irt[i] + at[i-1]
+
+			
+
+			if(at[i] > service_time_end[i-1]){
+				wait_time[i] = 0
+			}
+
+			else {
+				wait_time[i] = service_time_end[i-1] - at[i] 
+				total_wait_time += wait_time[i]
+			}
+
+			service_time_start[i] = at[i] + wait_time[i];
+			service_time_end[i] = st[i] + service_time_start[i]
+			// console.log("random number x[" + i + "] : " + x[i])
+			// console.log("Inter-arrival times irt[" + i + "]"+irt[i] )
+			// console.log("Service times st[" + i + "]" +st[i] )
+			// console.log(chlander)
+			total_service_time += st[i];
+			total_inter_arrivle_time += irt[i];
+		}
+		
+		avg_service_time = 1/(total_service_time/1000)
+		avg_inter_arrival_time = 1/(total_inter_arrivle_time/1000)
+		avg_wait_time = 1/(avg_service_time -  avg_inter_arrival_time) - 1/avg_service_time
+		// Lq = avg_wait_time * avg_inter_arrival_time
+		// Ls = avg_inter_arrival_time / avg_service_time
+		// L = Lq + Ls;
+		return avg_wait_time;
+
+		for ( i = 0; i < 1000; i++){
+			console.log("random number x[" + i + "] : " + x[i])
+			console.log("Inter-arrival times irt[" + i + "]: "+irt[i] )
+			console.log("Service times st[" + i + "]: " +st[i] )
+			console.log("Arrival times st[" + i + "]: " +at[i] )
+
+			console.log("service_time_start[" + i + "]: " + service_time_start[i] )
+			console.log("wait_time wait_time[" + i + "]: " + wait_time[i] )
+			if(wait_time[i]>0){
+				console.log("waiting_c");
+			}
+			console.log("service_time_end[" + i + "]: " +service_time_end[i] )
+		}
+
+		
+
+		console.log("TOTAL WAITING: " + total_wait_time)
+		// console.log("SIMULATION CLIENT: " + simulation_client)
+		console.log("SIMULATION CLIENT L: " + L)
+		
+		// sts[]
+		for(i=1; i<irt.length;i++){
+			at[i]=at[i-1] +irt[i]
+			//console.log("Arrival time: " +i+at[i])
+		}
+		console.log(at)
+
+
+
+	}
+
+
+
+	
+	function expregenerateH(){
+		Plotly.newPlot('myDiv', make_histogram());
+	}
+	
+	function expregenerateQQ(){
+		Plotly.newPlot('myDiv', make_qq());
+	}
+	
+	
+	function regenerate(){
+		Plotly.newPlot('myDiv', random_generator());
+	}
+
+	function step3_graph_draw(){
+		Plotly.newPlot('myDiv', step3_graph());
+	}
+
+	function step3_graph_delay_draw(){
+		Plotly.newPlot('myDiv', step3_graph_delay());
+	}
+
+</script>
+</body>
